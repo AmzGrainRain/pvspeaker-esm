@@ -71,7 +71,7 @@ add_library(pv_speaker SHARED $<TARGET_OBJECTS:pv_speaker_object>)
 set_target_properties(pv_speaker PROPERTIES PUBLIC_HEADER include/pv_speaker.h)
 target_include_directories(pv_speaker PUBLIC include)
 
-if (NOT ${PV_RECORDER_PLATFORM} STREQUAL "windows-amd64" AND NOT ${PV_RECORDER_PLATFORM} STREQUAL "windows-arm64")
+if (NOT ${PV_SPEAKER_PLATFORM} STREQUAL "windows-amd64" AND NOT ${PV_SPEAKER_PLATFORM} STREQUAL "windows-arm64")
     target_link_libraries(pv_speaker PRIVATE pthread dl m)
     if(PV_LINK_ATOMIC)
         target_link_libraries(pv_speaker PRIVATE atomic)
