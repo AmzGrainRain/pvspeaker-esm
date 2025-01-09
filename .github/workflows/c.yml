@@ -48,7 +48,7 @@ jobs:
         working-directory: project/build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.pv_speaker_platform }}
           path: |
@@ -99,7 +99,7 @@ jobs:
         working-directory: project/build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.pv_speaker_platform }}
           path: |
@@ -135,7 +135,7 @@ jobs:
         working-directory: project/build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.pv_speaker_platform }}
           path: |
@@ -144,14 +144,24 @@ jobs:
           retention-days: 3
 
   build-windows:
-    runs-on: pv-windows
+    runs-on: ${{ matrix.machine }}
+    strategy:
+      matrix:
+        pv_speaker_platform: [windows-amd64, windows-arm64]
+        include:
+          - pv_speaker_platform: windows-amd64
+            machine: pv-windows
+            output_dir: windows/amd64
+          - pv_speaker_platform: windows-arm64
+            machine: pv-windows-arm64
+            output_dir: windows/arm64
     steps:
       - uses: actions/checkout@v3
         with:
           submodules: recursive
 
       - name: Create build directory
-        run: cmake -B ./build -S . -DPV_SPEAKER_PLATFORM="windows" -DOUTPUT_DIR="windows/amd64"
+        run: cmake -B ./build -S . -DPV_SPEAKER_PLATFORM=${{ matrix.pv_speaker_platform }} -DOUTPUT_DIR=${{ matrix.output_dir }}
         working-directory: project
         shell: pwsh
 
@@ -166,7 +176,7 @@ jobs:
         shell: pwsh
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: windows
           path: |
@@ -180,7 +190,7 @@ jobs:
 
     steps:
       - name: Download artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           path: artifacts
 
@@ -193,7 +203,7 @@ jobs:
           for DIR in artifacts/*; do cp -a $DIR/* all-libs/lib/; done
 
       - name: Upload all artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: all-libs
           path: all-libs
