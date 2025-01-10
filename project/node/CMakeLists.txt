@@ -34,7 +34,7 @@ if (${PV_SPEAKER_PLATFORM} STREQUAL "windows-amd64" OR ${PV_SPEAKER_PLATFORM} ST
 
     ExternalProject_Add(
             node_win_lib
-            URL https://nodejs.org/dist/v${NODE_VERSION}/win-x64/node.exe
+            URL https://nodejs.org/dist/v${NODE_VERSION}/${PV_WINDOWS_NODE_ARCH}/node.exe
             DOWNLOAD_NO_EXTRACT on
             DOWNLOAD_DIR ${NODE_WIN_LIB_DIR}
             CONFIGURE_COMMAND ""
