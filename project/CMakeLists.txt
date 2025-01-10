@@ -11,7 +11,7 @@ option(PV_BUILD_NODE "Build Node.js libraries" ON)
 
 if(NOT PV_SPEAKER_PLATFORM)
     message(FATAL_ERROR "No `PV_SPEAKER_PLATFORM` value was given. Valid platforms are: \n"
-            "linux, mac-arm64, mac-x86_64, windows, raspberry-pi3-32, raspberry-pi3-64,"
+            "linux, mac-arm64, mac-x86_64, windows-amd64, windows-arm64, raspberry-pi3-32, raspberry-pi3-64,"
             "raspberry-pi4-32, raspberry-pi4-64, raspberry-pi5-32, raspberry-pi5-64")
 endif()
 
@@ -53,8 +53,12 @@ elseif (${PV_SPEAKER_PLATFORM} STREQUAL "raspberry-pi5-64")
     add_definitions(-D__PV_SPEAKER_PLATFORM_RASPBERRYPI__)
     add_compile_options(-mcpu=cortex-a76 -mtune=cortex-a76)
     add_link_options(-mcpu=cortex-a76 -mtune=cortex-a76)
-elseif (${PV_SPEAKER_PLATFORM} STREQUAL "windows")
+elseif (${PV_SPEAKER_PLATFORM} STREQUAL "windows-amd64")
     add_definitions(-D__PV_SPEAKER_PLATFORM_WINDOWS__)
+    set(PV_WINDOWS_NODE_ARCH "win-x64")
+elseif (${PV_SPEAKER_PLATFORM} STREQUAL "windows-arm64")
+    add_definitions(-D__PV_SPEAKER_PLATFORM_WINDOWS__)
+    set(PV_WINDOWS_NODE_ARCH "win-arm64")
 else ()
     message(FATAL_ERROR "Unknown platform `${PV_SPEAKER_PLATFORM}`.")
 endif ()
@@ -67,7 +71,7 @@ add_library(pv_speaker SHARED $<TARGET_OBJECTS:pv_speaker_object>)
 set_target_properties(pv_speaker PROPERTIES PUBLIC_HEADER include/pv_speaker.h)
 target_include_directories(pv_speaker PUBLIC include)
 
-if (NOT ${PV_SPEAKER_PLATFORM} STREQUAL "windows")
+if (NOT ${PV_SPEAKER_PLATFORM} STREQUAL "windows-amd64" AND NOT ${PV_SPEAKER_PLATFORM} STREQUAL "windows-arm64")
     target_link_libraries(pv_speaker PRIVATE pthread dl m)
     if(PV_LINK_ATOMIC)
         target_link_libraries(pv_speaker PRIVATE atomic)
