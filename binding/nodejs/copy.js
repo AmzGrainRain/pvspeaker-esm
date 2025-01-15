@@ -1,5 +1,5 @@
 //
-// Copyright 2024 Picovoice Inc.
+// Copyright 2024-2025 Picovoice Inc.
 //
 // You may not use this file except in compliance with the license. A copy of the license is located in the "LICENSE"
 // file accompanying this source.
@@ -23,19 +23,5 @@ ncp(
             return console.error(err);
         }
         console.log("Successfully copied library.");
-    }
-)
-
-console.log("Copying scripts...");
-
-// Scripts
-ncp(
-    "../../resources/scripts",
-    "./scripts",
-    function (err) {
-        if (err) {
-            return console.error(err);
-        }
-        console.log("Successfully copied scripts.")
     }
 )

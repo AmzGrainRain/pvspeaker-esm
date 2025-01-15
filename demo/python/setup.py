@@ -1,3 +1,14 @@
+#
+# Copyright 2025 Picovoice Inc.
+#
+# You may not use this file except in compliance with the license. A copy of the license is located in the "LICENSE"
+# file accompanying this source.
+#
+# Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
+# an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
+# specific language governing permissions and limitations under the License.
+#
+
 import os
 import shutil
 
@@ -23,7 +34,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.md'), 'r') as f:
 
 setuptools.setup(
     name="pvspeakerdemo",
-    version="1.0.3",
+    version="1.0.4",
     author="Picovoice",
     author_email="hello@picovoice.ai",
     description="Speaker library for Picovoice.",
@@ -31,7 +42,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/Picovoice/pvspeaker",
     packages=["pvspeakerdemo"],
-    install_requires=["pvspeaker==1.0.3"],
+    install_requires=["pvspeaker==1.0.4"],
     include_package_data=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
