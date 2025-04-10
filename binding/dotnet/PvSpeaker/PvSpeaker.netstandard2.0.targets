@@ -1,6 +1,6 @@
-﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <ItemGroup>
-        <Content Include="$(MSBuildThisFileDirectory)../../lib/netstandard2.0/PvSpeaker.dll">
+        <Content Include="$(MSBuildThisFileDirectory)..\..\lib\netstandard2.0\PvSpeaker.dll">
             <Link>PvSpeaker.dll</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
             <Visible>False</Visible>
