@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.4)
+cmake_minimum_required(VERSION 3.10)
 project(pv_speaker_demo VERSION 1.0.0 DESCRIPTION "Picovoice audio player library demo.")
 
 if(NOT PV_SPEAKER_PLATFORM)

@@ -8,7 +8,7 @@ PvSpeaker is an easy-to-use, cross-platform audio player designed for real-time 
 
 ## Requirements
 
-- CMake 3.4+.
+- CMake 3.10+.
 - C99 compatible compiler.
 - **Windows**: MinGW.
 
