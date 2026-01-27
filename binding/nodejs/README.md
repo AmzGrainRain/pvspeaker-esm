@@ -89,4 +89,4 @@ speaker.release();
 
 ## Demos
 
-[@picovoice/pvspeaker-demo](https://www.npmjs.com/package/@picovoice/pvspeaker-demo) provides command-line utilities for playing audio from a file.
+[@picovoice/pvspeaker-demo](https://www.npmjs.com/package/@picovoice/pvspeaker-demo) provides command-line utilities for playing audio from a file. <!-- markdown-link-check-disable-line -->
