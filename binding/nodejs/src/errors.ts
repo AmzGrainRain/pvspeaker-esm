@@ -8,9 +8,8 @@
 // an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 //
-"use strict";
 
-import PvSpeakerStatus from "./pv_speaker_status_t";
+import PvSpeakerStatus from "./pv_speaker_status_t.js";
 
 class PvSpeakerStatusOutOfMemoryError extends Error {}
 class PvSpeakerStatusInvalidArgumentError extends Error {}
@@ -40,7 +39,6 @@ function pvSpeakerStatusToException(status: PvSpeakerStatus, errorMessage: strin
     case PvSpeakerStatus.RUNTIME_ERROR:
       return new PvSpeakerStatusRuntimeError(errorMessage);
     default:
-      // eslint-disable-next-line
       console.warn(`Unknown error code: ${status}`);
       return new Error(errorMessage);
   }

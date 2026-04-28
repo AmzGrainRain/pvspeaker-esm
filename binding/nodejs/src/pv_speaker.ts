@@ -8,20 +8,21 @@
 // an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 //
-"use strict";
 
-import PvSpeakerStatus from "./pv_speaker_status_t";
-import pvSpeakerStatusToException from "./errors";
-import { getSystemLibraryPath } from './platforms';
+import PvSpeakerNativeBinding from './pv_speaker.binding.type.js'
+import PvSpeakerStatus from "./pv_speaker_status_t.js";
+import pvSpeakerStatusToException from "./errors.js";
+import { getSystemLibraryPath } from './platforms.js';
+import { createRequire } from 'node:module'
 
+const _require = createRequire(import.meta.url);
 /**
  * PvSpeaker class for playing audio.
  */
 class PvSpeaker {
-  // eslint-disable-next-line
-  private static _pvSpeaker = require(getSystemLibraryPath());
+  private static _pvSpeaker: PvSpeakerNativeBinding = _require(getSystemLibraryPath());
 
-  private readonly _handle: number;
+  private readonly _handle: bigint;
   private readonly _sampleRate: number;
   private readonly _bitsPerSample: number;
   private readonly _bufferSizeSecs: number;

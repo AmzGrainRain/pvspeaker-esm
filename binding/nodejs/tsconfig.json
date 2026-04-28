@@ -1,13 +1,21 @@
 {
   "compilerOptions": {
-    "lib": ["esnext"],
+    "lib": [
+      "esnext"
+    ],
     "target": "esnext",
-    "module": "commonjs",
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "types": [
+      "node"
+    ],
+    "rootDir": "./src",
     "outDir": "./dist",
     "allowJs": false,
     "allowSyntheticDefaultImports": true,
-    "downlevelIteration": true,
+    "declaration": true,
+    "declarationMap": true,
+    "esModuleInterop": true,
     "isolatedModules": false,
     "noEmit": false,
     "removeComments": false,
@@ -16,5 +24,9 @@
     "strict": true,
     "noImplicitAny": true
   },
-  "exclude": ["node_modules", "dist", "test"]
+  "exclude": [
+    "node_modules",
+    "dist",
+    "test"
+  ]
 }
