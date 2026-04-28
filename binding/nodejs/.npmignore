@@ -1,2 +1,27 @@
-node_modules
-demo
+# Source code
+src/
+test/
+
+# Build tools and configs
+tsconfig.json
+jest.config.js
+.eslintrc.js
+.eslintignore
+.prettierrc
+.gitignore
+.npmignore
+pnpm-lock.yaml
+pnpm-workspace.yaml
+
+# CI/CD
+.github/
+
+# Documentation (keep README and LICENSE)
+# README.md
+# LICENSE
+
+# Others
+node_modules/
+demo/
+scripts/
+copy.js
