@@ -124,11 +124,12 @@ class PvSpeaker {
    * Only writes as much PCM data as the internal circular buffer can currently fit, and
    * returns the length of the PCM data that was successfully written.
    *
-   * @param {ArrayBuffer} pcm PCM data to be played.
+   * @param {ArrayBuffer | Buffer} pcm PCM data to be played.
    * @returns {number} Length of the PCM data that was successfully written.
    */
-  public write(pcm: ArrayBuffer): number {
-    const result = PvSpeaker._pvSpeaker.write(this._handle, this._bitsPerSample, pcm);
+  public write(pcm: ArrayBuffer | Buffer): number {
+    const buffer = this._toPureArrayBuffer(pcm);
+    const result = PvSpeaker._pvSpeaker.write(this._handle, this._bitsPerSample, buffer);
     if (result.status !== PvSpeakerStatus.SUCCESS) {
       throw pvSpeakerStatusToException(result.status, "Failed to write to device.");
     }
@@ -140,16 +141,29 @@ class PvSpeaker {
    * Synchronous call to write PCM data to the internal circular buffer for audio playback.
    * This call blocks the thread until all PCM data has been successfully written and played.
    *
-   * @param {ArrayBuffer} pcm PCM data to be played.
+   * @param {ArrayBuffer | Buffer} pcm PCM data to be played.
    * @returns {number} The length of the PCM data that was successfully written.
    */
-  public flush(pcm: ArrayBuffer = new ArrayBuffer(0)): number {
-    const result = PvSpeaker._pvSpeaker.flush(this._handle, this._bitsPerSample, pcm);
+  public flush(pcm: ArrayBuffer | Buffer = new ArrayBuffer(0)): number {
+    const buffer = this._toPureArrayBuffer(pcm);
+    const result = PvSpeaker._pvSpeaker.flush(this._handle, this._bitsPerSample, buffer);
     if (result.status !== PvSpeakerStatus.SUCCESS) {
       throw pvSpeakerStatusToException(result.status, "Failed to flush PCM data.");
     }
 
     return result.written_length;
+  }
+
+  /**
+   * Converts Buffer or ArrayBuffer to a pure ArrayBuffer compatible with N-API.
+   */
+  private _toPureArrayBuffer(input: ArrayBuffer | Buffer): ArrayBuffer {
+    if (input instanceof ArrayBuffer) {
+      return input;
+    }
+    // Buffer is a Uint8Array. We must slice its underlying buffer to get a pure ArrayBuffer
+    // that respects the byteOffset and byteLength.
+    return (input.buffer as ArrayBuffer).slice(input.byteOffset, input.byteOffset + input.byteLength);
   }
 
   /**
