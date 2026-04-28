@@ -1,4 +1,6 @@
-# PvSpeaker Binding for Node.js
+# PvSpeaker Binding for Node.js (ESM Version)
+
+> **Note:** This is an ESM-compatible fork of the original [@picovoice/pvspeaker-node](https://github.com/Picovoice/pvspeaker). It provides full ES Module support and modernized TypeScript definitions.
 
 ## PvSpeaker
 
@@ -12,21 +14,25 @@ PvSpeaker is an easy-to-use, cross-platform audio player designed for real-time 
 ## Installation
 
 ```console
-yarn add @picovoice/pvspeaker-node
+npm install @amzgrainrain/pvspeaker-node
+# or
+yarn add @amzgrainrain/pvspeaker-node
+# or
+pnpm add @amzgrainrain/pvspeaker-node
 ```
 
 ## Usage
 
-Initialize and start `PvSpeaker`:
+Since this package is ESM-only, use `import` syntax:
 
 ```javascript
-const { PvSpeaker } = require("@picovoice/pvspeaker-node");
+import { PvSpeaker } from "@amzgrainrain/pvspeaker-node";
 
 const sampleRate = 22050;
 const bitsPerSample = 16;
 const speaker = new PvSpeaker(sampleRate, bitsPerSample);
 
-speaker.start()
+speaker.start();
 ```
 
 (or)
@@ -34,27 +40,26 @@ speaker.start()
 Use `getAvailableDevices()` to get a list of available devices and then initialize the instance based on the index of a device:
 
 ```javascript
+import { PvSpeaker } from "@amzgrainrain/pvspeaker-node";
 
-const { PvSpeaker } = require("@picovoice/pvspeaker-node");
-
-const devices = PvSpeaker.getAvailableDevices()
+const devices = PvSpeaker.getAvailableDevices();
 
 const sampleRate = 22050;
 const bitsPerSample = 16;
 const deviceIndex = 0;
 const speaker = new PvSpeaker(sampleRate, bitsPerSample, { deviceIndex });
 
-speaker.start()
+speaker.start();
 ```
 
 Write PCM data to the speaker:
 
 ```typescript
 function getNextAudioFrame(): ArrayBuffer {
-    //
+    // ...
 }
 
-speaker.write(getNextAudioFrame())
+speaker.write(getNextAudioFrame());
 ```
 
 Note: the `write()` method only writes as much PCM data as the internal circular buffer can currently fit, and returns the length of the PCM data that was successfully written.
@@ -62,17 +67,17 @@ Note: the `write()` method only writes as much PCM data as the internal circular
 When all frames have been written, run `flush()` to wait for all buffered PCM data (i.e. previously buffered via `write()`) to be played:
 
 ```typescript
-speaker.flush()
+speaker.flush();
 ```
 
 Note: calling `flush()` with PCM data as an argument will both write that PCM data and wait for all buffered PCM data to finish.
 
 ```typescript
 function getRemainingAudioFrames(): ArrayBuffer {
-    //
+    // ...
 }
 
-speaker.flush(getRemainingAudioFrames())
+speaker.flush(getRemainingAudioFrames());
 ```
 
 To stop the audio output device, run `stop()`:
@@ -87,6 +92,17 @@ Once you are done (i.e. no longer need PvSpeaker to write and/or play PCM), free
 speaker.release();
 ```
 
+## Key Changes from Original
+
+- **ESM Support**: Fully migrated to ES Modules.
+- **Type Safety**: Improved TypeScript definitions with `bigint` handles.
+- **Modern Tooling**: Updated to latest TypeScript and Jest versions.
+
 ## Demos
 
-[@picovoice/pvspeaker-demo](https://www.npmjs.com/package/@picovoice/pvspeaker-demo) provides command-line utilities for playing audio from a file. <!-- markdown-link-check-disable-line -->
+The original [@picovoice/pvspeaker-demo](https://www.npmjs.com/package/@picovoice/pvspeaker-demo) provides command-line utilities for playing audio from a file.
+
+## License
+
+Copyright 2024 Picovoice Inc.
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.

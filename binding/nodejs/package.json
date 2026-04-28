@@ -1,6 +1,6 @@
 {
-  "name": "@picovoice/pvspeaker-node",
-  "version": "1.0.3",
+  "name": "@amzgrainrain/pvspeaker-node",
+  "version": "1.0.3-esm.0",
   "description": "Audio player sdk for Nodejs.",
   "main": "dist/index.js",
   "keywords": [
